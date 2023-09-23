@@ -3,4 +3,4 @@ backports.zoneinfo==0.2.1
 Django==3.2.21
 pytz==2023.3.post1
 sqlparse==0.4.4
-typing_extensions==4.8.0
+typing_extensions==4.7.1
