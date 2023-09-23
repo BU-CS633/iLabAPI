@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-sf)am9vg44$@y+9bv^@k@gl0a3_@2fj9yi*w%-67w78$8wj-&f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ilab-api.onrender.com']
 
 
 # Application definition
