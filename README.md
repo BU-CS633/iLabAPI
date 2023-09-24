@@ -1,8 +1,17 @@
 # CS633 Team-2: iLabAPI
 
 Welcome to the iLabAPI repository. This is a backend repository for the iLab platform. This guide will walk you through the process of cloning, setting up, and running the project on your local machine.
-
 Project detail can be found in [this Google Docs](https://docs.google.com/document/d/1LrAqqTd58ldKJLBiHCrjrwJL641t1vtTooFNEX3d2c8/edit?usp=sharing)
+
+Backend will be built using Python with the Django framework. All codebase will be stored in github: https://github.com/BU-CS633/iLabAPI. Details about installation can be found in the same link.
+Deployment will be done automatically every time there's a push commit into the main branch. The api can be accessed from https://ilab-api.onrender.com/api.
+
+**File structure:**
+- `iLabAPI/iLabAPI` will contain all Django and app configuration.
+- `iLabAPI/api` will contain all API and its functionality.
+
+Developers feel free to create a new dedicated file to contain the logic, but please be aware to put it in accessible places so it can be easily imported if someone needs to reuse the same function.
+
 ## Prerequisites
 
 Ensure you have the following installed:
