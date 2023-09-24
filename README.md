@@ -2,6 +2,7 @@
 
 Welcome to the iLabAPI repository. This is a backend repository for the iLab platform. This guide will walk you through the process of cloning, setting up, and running the project on your local machine.
 
+Project detail can be found in [this Google Docs](https://docs.google.com/document/d/1LrAqqTd58ldKJLBiHCrjrwJL641t1vtTooFNEX3d2c8/edit?usp=sharing)
 ## Prerequisites
 
 Ensure you have the following installed:
