@@ -9,6 +9,7 @@ Ensure you have the following installed:
 - Python (Preferably 3.6 or newer)
 - Pip (Python package installer)
 - Virtual environment (optional, but recommended)
+- PostgreSQL (Version 15)
 
 ## Steps to Clone and Run
 
