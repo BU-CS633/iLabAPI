@@ -32,13 +32,16 @@ source venv/bin/activate  # On Windows, use: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Apply Migrations
-Before running the server for the first time, apply migrations to set up your database schema:
+4. Create `.env` file under the `iLabAPI` folder. Theres a `.env.example` file in that folder that you can modify the content according to your configuration and rename it to `.env`.
+
+
+5. Apply Migrations
+Before running the server for the first time, create a database called `ilab` (also use this value as `DB_NAME` in the `.env` file) and then apply migrations to set up your database schema:
 ```bash
 python manage.py migrate
 ```
 
-5. Run the Development Server
+6. Run the Development Server
 ```bash
 python manage.py runserver
 ```
