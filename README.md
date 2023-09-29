@@ -76,4 +76,4 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
-Once the server is running, you can visit http://127.0.0.1:8000/ in your browser.
+Once the server is running, you can visit http://127.0.0.1:8000/api or http://127.0.0.1:8000/admin in your browser.
