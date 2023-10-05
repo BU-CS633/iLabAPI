@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
-    # qty = models.IntegerField()
+    qty = models.IntegerField()
     vendor = models.CharField(max_length=200,null=True,blank=True)
     catalog = models.CharField(max_length=255, null=True, blank=True)  # Adding the catalog field
     lastOrderDate = models.DateField(null=True, blank=True)  # Adding the lastOrderDate field

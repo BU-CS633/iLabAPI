@@ -1,14 +1,13 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from .models import Item
 
 
 class ItemDetailViewTestCase(TestCase):
     def setUp(self):
-        self.client = Client()
-
         # Create a sample item
         self.item = Item.objects.create(
             name="Test Item",
+            qty=10,
             vendor="Test Vendor",
             catalog="Test Catalog",
             lastOrderDate="2022-01-01",
@@ -24,6 +23,7 @@ class ItemDetailViewTestCase(TestCase):
         expected_data = {
             "id": self.item.id,
             "name": "Test Item",
+            "qty": 10,
             "vendor": "Test Vendor",
             "catalog": "Test Catalog",
             "lastOrderDate": "2022-01-01",

@@ -8,7 +8,7 @@ def item_detail(request, item_id):
         data = {
             "id": item.id,
             "name": item.name,
-            # "qty": item.qty,
+            "qty": item.qty,
             "vendor": item.vendor,
             "catalog": item.catalog,
             "lastOrderDate": item.lastOrderDate,
