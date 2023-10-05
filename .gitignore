@@ -2,3 +2,5 @@
 venv
 .DS_Lite
 .env
+__pycache__/
+*.pyc
