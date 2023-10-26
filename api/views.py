@@ -3,6 +3,7 @@ from datetime import datetime
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Item
+from .models import Request
 
 
 def index(request):
@@ -30,6 +31,17 @@ def update_item(request, item_id):
 
         return JsonResponse({'status': 'success', 'message': 'Item updated successfully'})
     except Item.DoesNotExist:
+        return HttpResponse(status=404)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
+
+
+def delete_request(request, request_id):
+    try:
+        request_obj = Request.objects.get(pk=request_id)
+        request_obj.delete()
+        return JsonResponse({'status': 'success', 'message': 'Request deleted successfully'})
+    except Request.DoesNotExist:
         return HttpResponse(status=404)
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)})
