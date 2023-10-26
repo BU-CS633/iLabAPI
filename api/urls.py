@@ -10,3 +10,4 @@ urlpatterns = [
     path("item_list/", item_list, name="item_list"),
     path("request/approve/<int:request_id>/", approve_request, name="approve_request"),
 ]
+
