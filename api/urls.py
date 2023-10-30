@@ -8,6 +8,8 @@ from .approve_request import approve_request
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'items', views.ItemViewSet)
+router.register(r'requests', views.RequestViewSet)
 
 urlpatterns = [
     path("", views.index, name="index"),
