@@ -1,6 +1,6 @@
 from django.http import JsonResponse, Http404
 from .models import Item
-
+from rest_framework import serializers
 
 def item_list(request):
     items = Item.objects.all()
