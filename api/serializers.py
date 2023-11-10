@@ -14,15 +14,23 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ['url', 'name']
 
+
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['name', 'fullName', 'unitSize', 'qty','price','vendor','catalog','lastOrderDate','lastReceivedDate','channel','location','link','notes']
+        fields = ['name', 'fullName', 'unitSize', 'qty', 'price', 'vendor', 'catalog', 'lastOrderDate',
+                  'lastReceivedDate', 'channel', 'location', 'link', 'notes']
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
     item = ItemSerializer()
     owner = UserSerializer()
+    status = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='description',
+    )
+
     class Meta:
         model = Request
-        fields = ['owner','item','request_date','order_date','received_date','approved_date','receivedBy']
+        fields = ['owner', 'item', 'request_date', 'order_date', 'received_date', 'approved_date', 'receivedBy',
+                  'status']

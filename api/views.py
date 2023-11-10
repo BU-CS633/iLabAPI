@@ -83,5 +83,5 @@ class RequestViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Request.objects.all()
+    queryset = Request.objects.all().order_by('id')
     serializer_class = RequestSerializer
