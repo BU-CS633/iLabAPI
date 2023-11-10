@@ -22,14 +22,8 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
-    item = serializers.SlugRelatedField(
-        queryset=Item.objects.all(),
-        slug_field='name',
-    )
-    owner = serializers.SlugRelatedField(
-        queryset=User.objects.all(),
-        slug_field='username',
-    )
+    item = ItemSerializer()
+    owner = UserSerializer()
     status = serializers.SlugRelatedField(
         read_only=True,
         slug_field='description',
@@ -37,6 +31,5 @@ class RequestSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Request
-        fields = ['item', 'owner', 'request_date', 'status']
-
-
+        fields = ['owner', 'item', 'request_date', 'order_date', 'received_date', 'approved_date', 'receivedBy',
+                  'status']
