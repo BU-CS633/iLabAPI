@@ -22,6 +22,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
     item = ItemSerializer()
+    owner = UserSerializer()
     class Meta:
         model = Request
         fields = ['owner','item','request_date','order_date','received_date','approved_date','receivedBy']
