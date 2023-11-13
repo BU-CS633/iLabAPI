@@ -10,6 +10,8 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer, GroupSerializer, ItemSerializer, RequestSerializer
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 def index(request):
     return HttpResponse("Hello CS633")
@@ -85,3 +87,5 @@ class RequestViewSet(viewsets.ModelViewSet):
     """
     queryset = Request.objects.all().order_by('id')
     serializer_class = RequestSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['item__id']
