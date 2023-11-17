@@ -19,7 +19,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
         fields = ['name', 'fullName', 'unitSize', 'qty', 'price', 'vendor', 'catalog', 'lastOrderDate',
-                  'lastReceivedDate', 'channel', 'location', 'link', 'notes']
+                  'lastReceivedDate', 'channel', 'location', 'link', 'notes','id']
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,4 +33,4 @@ class RequestSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Request
         fields = ['owner', 'item', 'request_date', 'order_date', 'received_date', 'approved_date', 'receivedBy',
-                  'status']
+                  'status','id']
