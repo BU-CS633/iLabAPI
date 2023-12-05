@@ -12,6 +12,31 @@ from .serializers import UserSerializer, GroupSerializer, ItemSerializer, Reques
 
 from django_filters.rest_framework import DjangoFilterBackend
 
+from rest_framework.authentication import TokenAuthentication
+
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view(['POST'])
+def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(username=username, password=password)
+    if user:
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
+    else:
+        return Response({'error': 'Invalid Credentials'}, status=400)
+
+
+class ItemViewSet(viewsets.ModelViewSet):
+    ...
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
 
 def index(request):
     return HttpResponse("Hello CS633")
@@ -78,7 +103,8 @@ class ItemViewSet(viewsets.ModelViewSet):
     """
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class RequestViewSet(viewsets.ModelViewSet):
