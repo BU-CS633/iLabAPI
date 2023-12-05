@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Status(models.Model):
+    DoesNotExist = None
+    objects = None
     description = models.CharField(max_length=200, null=True)
 
     def __str__(self):
@@ -40,9 +42,17 @@ class Request(models.Model):
     received_date = models.DateField(null=True, blank=True)
     approved_date = models.DateField(null=True, blank=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE, default=get_default_status)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='request_owner')
-    receivedBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='request_received_by', null=True,
-                                   blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    receivedBy = models.ForeignKey(User, on_delete=models.CASCADE, related_name='request_received_by', null=True, blank=True)
+    quantity_requested = models.IntegerField(null=True, blank=True)  # For Unit Quantity
+    request_notes = models.CharField(max_length=500, null=True, blank=True)  # New field for request notes
+
+
+    def total_price(self):
+        if self.quantity_requested is not None:
+            return self.quantity_requested * self.item.price
+        return 0
+
 
     def __str__(self):
         return self.item.name

@@ -89,3 +89,11 @@ class RequestViewSet(viewsets.ModelViewSet):
     serializer_class = RequestSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['item__id']
+
+    def get_serializer_context(self):
+        """
+        Extra context provided to the serializer class.
+        """
+        context = super().get_serializer_context()
+        # Add any custom context here
+        return context

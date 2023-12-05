@@ -23,14 +23,36 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
-    item = ItemSerializer()
-    owner = UserSerializer()
+    item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
+    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     status = serializers.SlugRelatedField(
         read_only=True,
         slug_field='description',
     )
+    total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Request
-        fields = ['owner', 'item', 'request_date', 'order_date', 'received_date', 'approved_date', 'receivedBy',
-                  'status','id']
+        fields = ['owner', 'item', 'request_date', 'order_date', 'received_date',
+                  'approved_date', 'receivedBy', 'status', 'quantity_requested',
+                  'total_price', 'request_notes']
+
+    @staticmethod
+    def get_total_price(obj):
+        total_price = obj.total_price()
+        return round(total_price, 3)
+
+    def to_representation(self, instance):
+        """
+        Modify the representation of the serializer to include username and item name.
+        """
+        representation = super().to_representation(instance)
+
+        # Add the username of the owner
+        representation['owner_username'] = instance.owner.username if instance.owner else None
+
+        # Add the name of the item
+        representation['item_name'] = instance.item.name if instance.item else None
+
+        return representation
+
