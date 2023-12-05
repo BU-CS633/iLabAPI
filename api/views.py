@@ -16,7 +16,8 @@ from rest_framework.authentication import TokenAuthentication
 
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -28,9 +29,21 @@ def login(request):
     if user:
         token, _ = Token.objects.get_or_create(user=user)
         return Response({'token': token.key})
+
     else:
         return Response({'error': 'Invalid Credentials'}, status=400)
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_details(request):
+    user = request.user
+    print("error--------------------------",  user.id)
+    return Response({
+        'id': user.id,
+        'username': user.username,
+        # Add other user details you want to expose
+    })
 
 class ItemViewSet(viewsets.ModelViewSet):
     ...
@@ -101,7 +114,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Item.objects.all()
+    queryset = Item.objects.all().order_by('id')  # Order the queryset
     serializer_class = ItemSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
