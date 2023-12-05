@@ -19,7 +19,7 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
         fields = ['name', 'fullName', 'unitSize', 'qty', 'price', 'vendor', 'catalog', 'lastOrderDate',
-                  'lastReceivedDate', 'channel', 'location', 'link', 'notes']
+                  'lastReceivedDate', 'channel', 'location', 'link', 'notes','id']
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
@@ -55,3 +55,4 @@ class RequestSerializer(serializers.HyperlinkedModelSerializer):
         representation['item_name'] = instance.item.name if instance.item else None
 
         return representation
+
