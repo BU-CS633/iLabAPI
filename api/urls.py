@@ -4,7 +4,8 @@ from rest_framework import routers
 from . import views
 from .item_detail import item_detail, item_list
 from .approve_request import approve_request
-from .views import login
+from .views import login, CurrentUserView
+
 
 
 router = routers.DefaultRouter()
@@ -22,6 +23,6 @@ urlpatterns = [
     path("api/item/<int:item_id>/", views.update_item, name="update_item"),  # Add this line
     path("api/request/delete/<int:request_id>/", views.delete_request, name="delete_request"),  # Add this line
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('current_user/', CurrentUserView.as_view(), name='current-user'),
 ]
