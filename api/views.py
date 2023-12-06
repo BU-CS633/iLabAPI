@@ -19,6 +19,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
 @api_view(['POST'])
@@ -38,12 +39,21 @@ def login(request):
 @permission_classes([IsAuthenticated])
 def get_user_details(request):
     user = request.user
-    print("error--------------------------",  user.id)
     return Response({
         'id': user.id,
         'username': user.username,
         # Add other user details you want to expose
     })
+
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Assuming the user model uses 'id' as the primary key
+        user_id = request.user.id
+        return Response({'user_id': user_id})
+
 
 class ItemViewSet(viewsets.ModelViewSet):
     ...
