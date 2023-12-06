@@ -144,5 +144,8 @@ class RequestViewSet(viewsets.ModelViewSet):
         Extra context provided to the serializer class.
         """
         context = super().get_serializer_context()
-        # Add any custom context here
+        user = self.request.user
+        user_is_admin = user.groups.filter(name='admin').exists() if user.is_authenticated else False
+        context['user_is_admin'] = user_is_admin
         return context
+

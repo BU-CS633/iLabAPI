@@ -19,12 +19,18 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
         fields = ['name', 'fullName', 'unitSize', 'qty', 'price', 'vendor', 'catalog', 'lastOrderDate',
-                  'lastReceivedDate', 'channel', 'location', 'link', 'notes','id']
+                  'lastReceivedDate', 'channel', 'location', 'link', 'notes', 'id']
 
 
 class RequestSerializer(serializers.HyperlinkedModelSerializer):
     item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user_is_admin = serializers.SerializerMethodField()
+
+    def get_user_is_admin(self, obj):
+        # Retrieve the 'user_is_admin' context and return it
+        return self.context.get('user_is_admin', False)
+
     status = serializers.SlugRelatedField(
         read_only=True,
         slug_field='description',
@@ -35,7 +41,7 @@ class RequestSerializer(serializers.HyperlinkedModelSerializer):
         model = Request
         fields = ['owner', 'item', 'request_date', 'order_date', 'received_date',
                   'approved_date', 'receivedBy', 'status', 'quantity_requested',
-                  'total_price', 'request_notes']
+                  'total_price', 'request_notes', 'id', 'user_is_admin']
 
     @staticmethod
     def get_total_price(obj):
