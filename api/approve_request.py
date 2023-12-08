@@ -1,6 +1,6 @@
 from django.http import JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
-from .models import Request, Status
+from .models import Request, Status,Item
 from django.utils import timezone
 
 
@@ -14,6 +14,10 @@ def approve_request(request, request_id):
             inventory_request.status = approve_status
             inventory_request.approved_date = timezone.now()
             inventory_request.save()
+
+            item = Item.objects.get(pk=inventory_request.item_id)
+            item.qty = item.qty + inventory_request.quantity_requested
+            item.save()
 
             return JsonResponse({"message": "Request approved successfully!"})
         except Request.DoesNotExist:
