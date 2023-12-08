@@ -17,6 +17,8 @@ def approve_request(request, request_id):
 
             item = Item.objects.get(pk=inventory_request.item_id)
             item.qty = item.qty + inventory_request.quantity_requested
+            item.lastOrderDate = timezone.now()
+            item.lastReceivedDate = timezone.now()
             item.save()
 
             return JsonResponse({"message": "Request approved successfully!"})
